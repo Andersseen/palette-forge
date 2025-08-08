@@ -27,6 +27,7 @@ import { ColorSwatch } from "../types/theme.types";
         >
           <p class="font-mono">{{ swatch().hex.toUpperCase() }}</p>
           <p class="font-mono">{{ swatch().hsl }}</p>
+          <p class="font-mono">{{ swatch().oklab }}</p>
           <p class="font-mono">{{ swatch().cssVar }}</p>
         </div>
       </div>

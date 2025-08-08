@@ -11,10 +11,17 @@ export interface HSLColor {
   l: number;
 }
 
+export interface OklabColor {
+  l: number;
+  a: number;
+  b: number;
+}
+
 export interface ColorSwatch {
   name: string;
   hex: string;
   hsl: string;
+  oklab: string;
   cssVar: string;
 }
 
