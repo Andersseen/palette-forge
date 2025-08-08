@@ -1,5 +1,5 @@
 import { Injectable, signal, computed } from '@angular/core';
-import { Theme, HSLColor, ColorSwatch, ThemeMode } from '../types/theme.types';
+import { Theme, HSLColor, ColorSwatch, ThemeMode, OklabColor } from '../types/theme.types';
 
 @Injectable({
   providedIn: 'root'
@@ -69,6 +69,36 @@ export class ColorService {
     }
 
     return { h: Math.round(h * 360), s: Math.round(s * 100), l: Math.round(l * 100) };
+  }
+
+  /**
+   * Converts HEX to Oklab color format
+   */
+  private hexToOklab(hex: string): OklabColor {
+    let r = parseInt(hex.slice(1, 3), 16) / 255;
+    let g = parseInt(hex.slice(3, 5), 16) / 255;
+    let b = parseInt(hex.slice(5, 7), 16) / 255;
+
+    // Convert to linear RGB
+    const linear = (c: number) => (c <= 0.04045 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4));
+    r = linear(r);
+    g = linear(g);
+    b = linear(b);
+
+    // Convert to LMS
+    const l = 0.4122214708 * r + 0.5363325363 * g + 0.0514459929 * b;
+    const m = 0.2119034982 * r + 0.6806995451 * g + 0.1073969566 * b;
+    const s = 0.0883024619 * r + 0.2817188376 * g + 0.6299787005 * b;
+
+    const l_ = Math.cbrt(l);
+    const m_ = Math.cbrt(m);
+    const s_ = Math.cbrt(s);
+
+    return {
+      l: 0.2104542553 * l_ + 0.7936177850 * m_ - 0.0040720468 * s_,
+      a: 1.9779984951 * l_ - 2.4285922050 * m_ + 0.4505937099 * s_,
+      b: 0.0259040371 * l_ + 0.7827717662 * m_ - 0.8086757660 * s_
+    };
   }
 
   /**
@@ -194,24 +224,28 @@ export class ColorService {
         name: 'Background',
         hex: theme.bg,
         hsl: this.formatHSL(this.hexToHsl(theme.bg)),
+        oklab: this.formatOklab(this.hexToOklab(theme.bg)),
         cssVar: '--bg'
       },
       {
         name: 'Foreground',
         hex: theme.fg,
         hsl: this.formatHSL(this.hexToHsl(theme.fg)),
+        oklab: this.formatOklab(this.hexToOklab(theme.fg)),
         cssVar: '--fg'
       },
       {
         name: 'Primary',
         hex: theme.primary,
         hsl: this.formatHSL(this.hexToHsl(theme.primary)),
+        oklab: this.formatOklab(this.hexToOklab(theme.primary)),
         cssVar: '--primary'
       },
       {
         name: 'Secondary',
         hex: theme.secondary,
         hsl: this.formatHSL(this.hexToHsl(theme.secondary)),
+        oklab: this.formatOklab(this.hexToOklab(theme.secondary)),
         cssVar: '--secondary'
       }
     ];
@@ -222,6 +256,13 @@ export class ColorService {
    */
   private formatHSL(hsl: HSLColor): string {
     return `hsl(${hsl.h}, ${hsl.s}%, ${hsl.l}%)`;
+  }
+
+  /**
+   * Formats Oklab values for display
+   */
+  private formatOklab(oklab: OklabColor): string {
+    return `oklab(${oklab.l.toFixed(3)} ${oklab.a.toFixed(3)} ${oklab.b.toFixed(3)})`;
   }
 
   /**
