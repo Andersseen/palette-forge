@@ -1,5 +1,5 @@
-import { Component, input, inject } from "@angular/core";
-import { ColorSwatch } from "../types/theme.types";
+import { Component, input } from "@angular/core";
+import type { ColorSwatchType } from "../types/theme.types";
 
 @Component({
   selector: "app-color-swatch",
@@ -43,8 +43,8 @@ import { ColorSwatch } from "../types/theme.types";
     </div>
   `,
 })
-export class ColorSwatchComponent {
-  swatch = input.required<ColorSwatch>();
+export default class ColorSwatch {
+  swatch = input.required<ColorSwatchType>();
   copied = false;
 
   async copyToClipboard(): Promise<void> {

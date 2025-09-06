@@ -17,7 +17,7 @@ export interface OklabColor {
   b: number;
 }
 
-export interface ColorSwatch {
+export interface ColorSwatchType {
   name: string;
   hex: string;
   hsl: string;
@@ -25,4 +25,4 @@ export interface ColorSwatch {
   cssVar: string;
 }
 
-export type ThemeMode = 'light' | 'dark';
+export type ThemeMode = "light" | "dark";
