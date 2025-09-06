@@ -1,18 +1,29 @@
 @import "tailwindcss";
 
 :root {
-  --bg: #ffffff;
-  --fg: #1a1a1a;
-  --primary: #3b82f6;
-  --secondary: #10b981;
+  --bg: "#ffffff";
+  --fg: "#1a1a1a";
+  --primary: "#3b82f6";
+  --secondary: "#10b981";
 }
 
-.dark {
-  --bg: #1a1a1a;
-  --fg: #ffffff;
-  --primary: #60a5fa;
-  --secondary: #34d399;
+/* @custom-variant dark (&:where(.dark, .dark *)); */
+
+@theme {
+  --color-background: rgb(var(--bg));
+  --color-foreground: rgb(var(--fg));
+  --color-primary: rgb(var(--primary));
+  --color-secondary: rgb(var(--secondary));
 }
+
+/* @layer base {
+  .dark {
+    --color-background: rgb(26 26 26);
+    --color-foreground: #f3f4f6;
+    --color-primary: #60a5fa;
+    --color-secondary: #34d399;
+  }
+} */
 
 body {
   background-color: rgb(var(--bg) / 1);

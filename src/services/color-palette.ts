@@ -233,6 +233,8 @@ export default class ColorPalette {
     root.style.setProperty("--fg", hexToRgb(theme.fg));
     root.style.setProperty("--primary", hexToRgb(theme.primary));
     root.style.setProperty("--secondary", hexToRgb(theme.secondary));
+
+    console.log(root.style.getPropertyValue("--bg"));
   }
 
   /**
@@ -293,11 +295,12 @@ export default class ColorPalette {
    */
   getTailwindConfig(): string {
     return `
-  @theme {
-      --color-background: rgb(var(--bg) / <alpha-value>);
-      --color-foreground: rgb(var(--fg) / <alpha-value>);
-      --color-primary: rgb(var(--primary) / <alpha-value>);
-      --color-secondary: rgb(var(--secondary) / <alpha-value>);
+ @theme {
+  --color-background: rgb(var(--bg));
+  --color-foreground: rgb(var(--fg));
+  --color-primary: rgb(var(--primary));
+  --color-secondary: rgb(var(--secondary));
+}
   }`;
   }
 }
