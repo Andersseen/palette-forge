@@ -1,5 +1,5 @@
 import { Component, inject } from "@angular/core";
-import ColorPalette from "@services/color.service";
+import ColorPalette from "@services/color-palette";
 
 @Component({
   selector: "app-export-panel",
