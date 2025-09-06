@@ -1,11 +1,11 @@
 import { Component, inject, computed } from "@angular/core";
-import { ColorService } from "./services/color.service";
-import { ThemePreviewComponent } from "./components/theme-preview.component";
-import { ColorSwatchComponent } from "./components/color-swatch.component";
-import { ExportPanelComponent } from "./components/export-panel.component";
+import { ColorService } from "@services/color.service";
+import { ThemePreviewComponent } from "@components/theme-preview.component";
+import { ColorSwatchComponent } from "@components/color-swatch.component";
+import { ExportPanelComponent } from "@components/export-panel.component";
 
 @Component({
-  selector: "app-root",
+  selector: "app-home",
   imports: [ThemePreviewComponent, ColorSwatchComponent, ExportPanelComponent],
   template: `
     <div
@@ -134,7 +134,7 @@ import { ExportPanelComponent } from "./components/export-panel.component";
     </div>
   `,
 })
-export default class App {
+export default class Home {
   private colorService = inject(ColorService);
 
   // Computed properties for template
