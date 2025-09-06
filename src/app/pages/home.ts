@@ -1,5 +1,5 @@
 import { Component, inject, computed } from "@angular/core";
-import { ColorService } from "@services/color.service";
+import ColorPalette from "@services/color.service";
 
 import Footer from "@components/footer";
 import Header from "@components/header";
@@ -65,7 +65,7 @@ import ThemePreview from "@components/theme-preview";
   `,
 })
 export default class Home {
-  private colorService = inject(ColorService);
+  private colorService = inject(ColorPalette);
 
   // Computed properties for template
   isDarkMode = computed(() => this.colorService.mode() === "dark");

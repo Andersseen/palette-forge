@@ -1,5 +1,4 @@
-import { Component, inject } from "@angular/core";
-import { ColorService } from "../services/color.service";
+import { Component } from "@angular/core";
 
 @Component({
   selector: "app-theme-preview",
@@ -93,6 +92,4 @@ import { ColorService } from "../services/color.service";
     </div>
   `,
 })
-export default class ThemePreview {
-  private colorService = inject(ColorService);
-}
+export default class ThemePreview {}

@@ -1,5 +1,5 @@
 import { Component, inject } from "@angular/core";
-import { ColorService } from "../services/color.service";
+import ColorPalette from "@services/color.service";
 
 @Component({
   selector: "app-export-panel",
@@ -37,7 +37,7 @@ import { ColorService } from "../services/color.service";
   `,
 })
 export default class ExportPanel {
-  private colorService = inject(ColorService);
+  private colorService = inject(ColorPalette);
   configCopied = false;
 
   getTailwindConfig(): string {
