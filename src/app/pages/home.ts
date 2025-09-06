@@ -29,7 +29,10 @@ import ThemePreview from "@components/theme-preview";
       />
 
       <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <app-hero-section (generatePalette)="generatePalette()" />
+        <app-hero-section
+          [isDarkMode]="isDarkMode()"
+          (generatePalette)="generatePalette()"
+        />
 
         <!-- Color Swatches -->
         <section class="mb-12">

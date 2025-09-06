@@ -294,19 +294,12 @@ export class ColorService {
    * Gets Tailwind config extension object
    */
   getTailwindConfig(): string {
-    const theme = this.currentTheme();
-    const config = {
-      theme: {
-        extend: {
-          colors: {
-            "theme-bg": "rgb(var(--bg) / <alpha-value>)",
-            "theme-fg": "rgb(var(--fg) / <alpha-value>)",
-            "theme-primary": "rgb(var(--primary) / <alpha-value>)",
-            "theme-secondary": "rgb(var(--secondary) / <alpha-value>)",
-          },
-        },
-      },
-    };
-    return JSON.stringify(config, null, 2);
+    return `
+  @theme {
+      --color-background: rgb(var(--bg) / <alpha-value>);
+      --color-foreground: rgb(var(--fg) / <alpha-value>);
+      --color-primary: rgb(var(--primary) / <alpha-value>);
+      --color-secondary: rgb(var(--secondary) / <alpha-value>);
+  }`;
   }
 }
