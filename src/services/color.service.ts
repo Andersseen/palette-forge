@@ -1,18 +1,22 @@
-import { Injectable, signal, computed } from '@angular/core';
-import { Theme, HSLColor, ColorSwatch, ThemeMode, OklabColor } from '../types/theme.types';
+import { Injectable, signal, computed } from "@angular/core";
+import type {
+  Theme,
+  HSLColor,
+  ColorSwatchType,
+  ThemeMode,
+  OklabColor,
+} from "../types/theme.types";
 
-@Injectable({
-  providedIn: 'root'
-})
-export class ColorService {
+@Injectable({ providedIn: "root" })
+export default class ColorPalette {
   private currentTheme = signal<Theme>({
-    bg: '#ffffff',
-    fg: '#1a1a1a',
-    primary: '#3b82f6',
-    secondary: '#10b981'
+    bg: "#ffffff",
+    fg: "#1a1a1a",
+    primary: "#3b82f6",
+    secondary: "#10b981",
   });
 
-  private themeMode = signal<ThemeMode>('light');
+  private themeMode = signal<ThemeMode>("light");
 
   // Public computed signals
   theme = computed(() => this.currentTheme());
@@ -20,13 +24,17 @@ export class ColorService {
 
   constructor() {
     // Auto-detect system preference
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    this.setThemeMode(prefersDark ? 'dark' : 'light');
-    
+    const prefersDark = window.matchMedia(
+      "(prefers-color-scheme: dark)"
+    ).matches;
+    this.setThemeMode(prefersDark ? "dark" : "light");
+
     // Listen for system preference changes
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-      this.setThemeMode(e.matches ? 'dark' : 'light');
-    });
+    window
+      .matchMedia("(prefers-color-scheme: dark)")
+      .addEventListener("change", (e) => {
+        this.setThemeMode(e.matches ? "dark" : "light");
+      });
   }
 
   /**
@@ -34,11 +42,13 @@ export class ColorService {
    */
   private hslToHex(h: number, s: number, l: number): string {
     l /= 100;
-    const a = s * Math.min(l, 1 - l) / 100;
+    const a = (s * Math.min(l, 1 - l)) / 100;
     const f = (n: number) => {
       const k = (n + h / 30) % 12;
       const color = l - a * Math.max(Math.min(k - 3, 9 - k, 1), -1);
-      return Math.round(255 * color).toString(16).padStart(2, '0');
+      return Math.round(255 * color)
+        .toString(16)
+        .padStart(2, "0");
     };
     return `#${f(0)}${f(8)}${f(4)}`;
   }
@@ -61,14 +71,24 @@ export class ColorService {
       const d = max - min;
       s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
       switch (max) {
-        case r: h = (g - b) / d + (g < b ? 6 : 0); break;
-        case g: h = (b - r) / d + 2; break;
-        case b: h = (r - g) / d + 4; break;
+        case r:
+          h = (g - b) / d + (g < b ? 6 : 0);
+          break;
+        case g:
+          h = (b - r) / d + 2;
+          break;
+        case b:
+          h = (r - g) / d + 4;
+          break;
       }
       h /= 6;
     }
 
-    return { h: Math.round(h * 360), s: Math.round(s * 100), l: Math.round(l * 100) };
+    return {
+      h: Math.round(h * 360),
+      s: Math.round(s * 100),
+      l: Math.round(l * 100),
+    };
   }
 
   /**
@@ -80,7 +100,8 @@ export class ColorService {
     let b = parseInt(hex.slice(5, 7), 16) / 255;
 
     // Convert to linear RGB
-    const linear = (c: number) => (c <= 0.04045 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4));
+    const linear = (c: number) =>
+      c <= 0.04045 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4);
     r = linear(r);
     g = linear(g);
     b = linear(b);
@@ -95,9 +116,9 @@ export class ColorService {
     const s_ = Math.cbrt(s);
 
     return {
-      l: 0.2104542553 * l_ + 0.7936177850 * m_ - 0.0040720468 * s_,
-      a: 1.9779984951 * l_ - 2.4285922050 * m_ + 0.4505937099 * s_,
-      b: 0.0259040371 * l_ + 0.7827717662 * m_ - 0.8086757660 * s_
+      l: 0.2104542553 * l_ + 0.793617785 * m_ - 0.0040720468 * s_,
+      a: 1.9779984951 * l_ - 2.428592205 * m_ + 0.4505937099 * s_,
+      b: 0.0259040371 * l_ + 0.7827717662 * m_ - 0.808675766 * s_,
     };
   }
 
@@ -109,8 +130,8 @@ export class ColorService {
       const rgb = [
         parseInt(hex.slice(1, 3), 16),
         parseInt(hex.slice(3, 5), 16),
-        parseInt(hex.slice(5, 7), 16)
-      ].map(c => {
+        parseInt(hex.slice(5, 7), 16),
+      ].map((c) => {
         c = c / 255;
         return c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4);
       });
@@ -130,17 +151,17 @@ export class ColorService {
   generatePalette(): void {
     // Generate base hue (0-360)
     const baseHue = Math.floor(Math.random() * 360);
-    
+
     // Create complementary and triadic colors for harmony
     const primaryHue = baseHue;
     const secondaryHue = (baseHue + 120) % 360; // Triadic harmony
-    
+
     let bgColor: string;
     let fgColor: string;
     let primaryColor: string;
     let secondaryColor: string;
 
-    if (this.themeMode() === 'light') {
+    if (this.themeMode() === "light") {
       // Light mode: light background, dark text
       bgColor = this.hslToHex(baseHue, 10, 98); // Very light, subtle hue
       fgColor = this.hslToHex(baseHue, 20, 15); // Very dark with slight hue tint
@@ -170,7 +191,7 @@ export class ColorService {
       bg: bgColor,
       fg: fgColor,
       primary: primaryColor,
-      secondary: secondaryColor
+      secondary: secondaryColor,
     });
 
     this.updateCSSVariables();
@@ -180,7 +201,7 @@ export class ColorService {
    * Toggles between light and dark theme modes
    */
   toggleThemeMode(): void {
-    const newMode = this.themeMode() === 'light' ? 'dark' : 'light';
+    const newMode = this.themeMode() === "light" ? "dark" : "light";
     this.setThemeMode(newMode);
   }
 
@@ -189,7 +210,7 @@ export class ColorService {
    */
   setThemeMode(mode: ThemeMode): void {
     this.themeMode.set(mode);
-    document.documentElement.classList.toggle('dark', mode === 'dark');
+    document.documentElement.classList.toggle("dark", mode === "dark");
     this.generatePalette();
   }
 
@@ -199,7 +220,7 @@ export class ColorService {
   private updateCSSVariables(): void {
     const theme = this.currentTheme();
     const root = document.documentElement;
-    
+
     // Convert hex to RGB values for better CSS variable usage
     const hexToRgb = (hex: string) => {
       const r = parseInt(hex.slice(1, 3), 16);
@@ -208,46 +229,46 @@ export class ColorService {
       return `${r} ${g} ${b}`;
     };
 
-    root.style.setProperty('--bg', hexToRgb(theme.bg));
-    root.style.setProperty('--fg', hexToRgb(theme.fg));
-    root.style.setProperty('--primary', hexToRgb(theme.primary));
-    root.style.setProperty('--secondary', hexToRgb(theme.secondary));
+    root.style.setProperty("--bg", hexToRgb(theme.bg));
+    root.style.setProperty("--fg", hexToRgb(theme.fg));
+    root.style.setProperty("--primary", hexToRgb(theme.primary));
+    root.style.setProperty("--secondary", hexToRgb(theme.secondary));
   }
 
   /**
    * Gets color swatches for display
    */
-  getColorSwatches(): ColorSwatch[] {
+  getColorSwatches(): ColorSwatchType[] {
     const theme = this.currentTheme();
     return [
       {
-        name: 'Background',
+        name: "Background",
         hex: theme.bg,
         hsl: this.formatHSL(this.hexToHsl(theme.bg)),
         oklab: this.formatOklab(this.hexToOklab(theme.bg)),
-        cssVar: '--bg'
+        cssVar: "--bg",
       },
       {
-        name: 'Foreground',
+        name: "Foreground",
         hex: theme.fg,
         hsl: this.formatHSL(this.hexToHsl(theme.fg)),
         oklab: this.formatOklab(this.hexToOklab(theme.fg)),
-        cssVar: '--fg'
+        cssVar: "--fg",
       },
       {
-        name: 'Primary',
+        name: "Primary",
         hex: theme.primary,
         hsl: this.formatHSL(this.hexToHsl(theme.primary)),
         oklab: this.formatOklab(this.hexToOklab(theme.primary)),
-        cssVar: '--primary'
+        cssVar: "--primary",
       },
       {
-        name: 'Secondary',
+        name: "Secondary",
         hex: theme.secondary,
         hsl: this.formatHSL(this.hexToHsl(theme.secondary)),
         oklab: this.formatOklab(this.hexToOklab(theme.secondary)),
-        cssVar: '--secondary'
-      }
+        cssVar: "--secondary",
+      },
     ];
   }
 
@@ -262,26 +283,21 @@ export class ColorService {
    * Formats Oklab values for display
    */
   private formatOklab(oklab: OklabColor): string {
-    return `oklab(${oklab.l.toFixed(3)} ${oklab.a.toFixed(3)} ${oklab.b.toFixed(3)})`;
+    return `oklab(${oklab.l.toFixed(3)} ${oklab.a.toFixed(3)} ${oklab.b.toFixed(
+      3
+    )})`;
   }
 
   /**
    * Gets Tailwind config extension object
    */
   getTailwindConfig(): string {
-    const theme = this.currentTheme();
-    const config = {
-      theme: {
-        extend: {
-          colors: {
-            'theme-bg': 'rgb(var(--bg) / <alpha-value>)',
-            'theme-fg': 'rgb(var(--fg) / <alpha-value>)',
-            'theme-primary': 'rgb(var(--primary) / <alpha-value>)',
-            'theme-secondary': 'rgb(var(--secondary) / <alpha-value>)'
-          }
-        }
-      }
-    };
-    return JSON.stringify(config, null, 2);
+    return `
+  @theme {
+      --color-background: rgb(var(--bg) / <alpha-value>);
+      --color-foreground: rgb(var(--fg) / <alpha-value>);
+      --color-primary: rgb(var(--primary) / <alpha-value>);
+      --color-secondary: rgb(var(--secondary) / <alpha-value>);
+  }`;
   }
 }
