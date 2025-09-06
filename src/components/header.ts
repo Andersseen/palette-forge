@@ -4,17 +4,12 @@ import ThemeSwitcher from "./theme-switcher";
 @Component({
   selector: "app-header",
   template: `
-    <header class="border-b border-b-foreground">
+    <header class="border-b border-b-foreground/20">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         <div class="flex items-center justify-between">
           <div>
-            <h1 class="text-4xl font-bold" style="color: rgb(var(--fg) / 1)">
-              Palette Forge
-            </h1>
-            <p
-              class="text-lg opacity-70 mt-2"
-              style="color: rgb(var(--fg) / 1)"
-            >
+            <h1 class="text-4xl font-bold">Palette Forge</h1>
+            <p class="text-lg opacity-70 mt-2">
               Generate cohesive four-color themes instantly
             </p>
           </div>
