@@ -7,7 +7,7 @@ import type {
   OklabColor,
 } from "../types/theme.types";
 
-@Injectable({ providedIn: "root" })
+@Injectable()
 export default class ColorPalette {
   private currentTheme = signal<Theme>({
     bg: "#ffffff",

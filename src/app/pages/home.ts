@@ -1,5 +1,5 @@
 import { Component, inject, computed } from "@angular/core";
-import ColorPalette from "@services/color.service";
+import ColorPalette from "@services/color-palette";
 
 import Footer from "@components/footer";
 import Header from "@components/header";
@@ -18,6 +18,7 @@ import ThemePreview from "@components/theme-preview";
     HeroSection,
     Footer,
   ],
+  providers: [ColorPalette],
   template: `
     <section
       class="min-h-screen transition-colors duration-300 overflow-x-hidden"
