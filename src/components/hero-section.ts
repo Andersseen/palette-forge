@@ -7,7 +7,6 @@ import { Component, input, Input, output } from "@angular/core";
     <section class="text-center mb-12">
       <button
         class="inline-flex items-center px-8 py-4 text-lg font-semibold rounded-lg transition-all duration-200 hover:opacity-90 hover:scale-105 focus:outline-none focus:ring-4 focus:ring-offset-2 shadow-lg"
-        style="background-color: rgb(var(--primary) / 1); color: white; focus:ring-color: rgb(var(--primary) / 0.3)"
         (click)="generatePalette.emit()"
       >
         <svg
@@ -25,7 +24,7 @@ import { Component, input, Input, output } from "@angular/core";
         </svg>
         Generate New Palette
       </button>
-      <p class="mt-4 text-sm opacity-60" style="color: rgb(var(--fg) / 1)">
+      <p class="mt-4 text-sm opacity-60">
         {{ isDarkMode() ? "Dark" : "Light" }} mode • WCAG AA compliant •
         Harmonious colors
       </p>

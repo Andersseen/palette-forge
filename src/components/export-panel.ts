@@ -5,22 +5,18 @@ import ColorPalette from "@services/color-palette";
   selector: "app-export-panel",
   template: `
     <div class="space-y-4">
-      <h3 class="text-lg font-semibold" style="color: rgb(var(--fg) / 1)">
-        Export Configuration
-      </h3>
+      <h3 class="text-lg font-semibold">Export Configuration</h3>
 
       <div class="flex flex-wrap gap-3">
         <button
-          class="px-4 py-2 rounded-md font-medium transition-all duration-200 hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2"
-          style="background-color: rgb(var(--primary) / 1); color: white; focus:ring-color: rgb(var(--primary) / 1)"
+          class="px-4 py-2 rounded-md font-medium transition-all duration-200 hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 bg-primary text-background focus:ring-primary"
           (click)="copyTailwindConfig()"
         >
           {{ configCopied ? "Config Copied!" : "Copy Tailwind Config" }}
         </button>
 
         <button
-          class="px-4 py-2 rounded-md font-medium border transition-all duration-200 hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2"
-          style="border-color: rgb(var(--fg) / 0.3); color: rgb(var(--fg) / 1); focus:ring-color: rgb(var(--primary) / 1)"
+          class="px-4 py-2 rounded-md font-medium border transition-all duration-200 hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 border-foreground/30 focus:ring-primary"
           (click)="downloadConfig()"
         >
           Download Config File
@@ -28,8 +24,7 @@ import ColorPalette from "@services/color-palette";
       </div>
 
       <div
-        class="p-4 rounded-lg border font-mono text-xs overflow-auto max-h-64"
-        style="background-color: rgb(var(--fg) / 0.05); border-color: rgb(var(--fg) / 0.2); color: rgb(var(--fg) / 1)"
+        class="p-4 rounded-lg border font-mono text-xs overflow-auto max-h-64 border-foreground/20"
       >
         <pre>{{ getTailwindConfig() }}</pre>
       </div>

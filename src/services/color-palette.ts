@@ -229,10 +229,10 @@ export default class ColorPalette {
       return `${r} ${g} ${b}`;
     };
 
-    root.style.setProperty("--bg", hexToRgb(theme.bg));
-    root.style.setProperty("--fg", hexToRgb(theme.fg));
-    root.style.setProperty("--primary", hexToRgb(theme.primary));
-    root.style.setProperty("--secondary", hexToRgb(theme.secondary));
+    // root.style.setProperty("--color-background", hexToRgb(theme.bg));
+    // root.style.setProperty("--color-foreground", hexToRgb(theme.fg));
+    // root.style.setProperty("--color-primary", hexToRgb(theme.primary));
+    // root.style.setProperty("--color-secondary", hexToRgb(theme.secondary));
   }
 
   /**
@@ -246,28 +246,28 @@ export default class ColorPalette {
         hex: theme.bg,
         hsl: this.formatHSL(this.hexToHsl(theme.bg)),
         oklab: this.formatOklab(this.hexToOklab(theme.bg)),
-        cssVar: "--bg",
+        cssVar: "--color-background",
       },
       {
         name: "Foreground",
         hex: theme.fg,
         hsl: this.formatHSL(this.hexToHsl(theme.fg)),
         oklab: this.formatOklab(this.hexToOklab(theme.fg)),
-        cssVar: "--fg",
+        cssVar: "--color-foreground",
       },
       {
         name: "Primary",
         hex: theme.primary,
         hsl: this.formatHSL(this.hexToHsl(theme.primary)),
         oklab: this.formatOklab(this.hexToOklab(theme.primary)),
-        cssVar: "--primary",
+        cssVar: "--color-primary",
       },
       {
         name: "Secondary",
         hex: theme.secondary,
         hsl: this.formatHSL(this.hexToHsl(theme.secondary)),
         oklab: this.formatOklab(this.hexToOklab(theme.secondary)),
-        cssVar: "--secondary",
+        cssVar: "--color-secondary",
       },
     ];
   }

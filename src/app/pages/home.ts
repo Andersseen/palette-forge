@@ -21,8 +21,7 @@ import ThemePreview from "@components/theme-preview";
   providers: [ColorPalette],
   template: `
     <section
-      class="min-h-screen transition-colors duration-300 overflow-x-hidden"
-      style="background-color: rgb(var(--bg) / 1)"
+      class="min-h-screen transition-colors duration-300 overflow-x-hidden bg-background text-foreground"
     >
       <app-header
         [isDarkMode]="isDarkMode()"
@@ -37,12 +36,7 @@ import ThemePreview from "@components/theme-preview";
 
         <!-- Color Swatches -->
         <section class="mb-12">
-          <h2
-            class="text-2xl font-semibold mb-6"
-            style="color: rgb(var(--fg) / 1)"
-          >
-            Color Palette
-          </h2>
+          <h2 class="text-2xl font-semibold mb-6">Color Palette</h2>
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             @for (swatch of colorSwatches(); track swatch.cssVar) {
             <app-color-swatch [swatch]="swatch" />

@@ -4,7 +4,7 @@ import ThemeSwitcher from "./theme-switcher";
 @Component({
   selector: "app-header",
   template: `
-    <header class="border-b" style="border-color: rgb(var(--fg) / 0.1)">
+    <header class="border-b border-b-foreground">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         <div class="flex items-center justify-between">
           <div>
