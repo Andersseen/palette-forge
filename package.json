@@ -1,6 +1,34 @@
 {
-  "name": "angular-starter",
-  "private": true,
+  "name": "palette-forge",
+  "private": false,
+  "description": "A lightweight tool to generate dynamic color palettes (background, foreground, primary, secondary) for Angular and Tailwind CSS v4.",
+  "author": {
+    "name": "Andrii Pap",
+    "username": "Andersseen",
+    "url": "https://github.com/Andersseen"
+  },
+  "license": "MIT",
+  "keywords": [
+    "angular",
+    "tailwind",
+    "tailwindcss",
+    "theme",
+    "palette",
+    "color",
+    "css-variables",
+    "angular-components",
+    "tailwind-4",
+    "dark-mode",
+    "light-mode"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Andersseen/palette-forge.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Andersseen/palette-forge/issues"
+  },
+  "homepage": "https://palette-forge-psi.vercel.app",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",

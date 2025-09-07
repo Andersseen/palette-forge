@@ -5,7 +5,7 @@
   },
   "newProjectRoot": "projects",
   "projects": {
-    "demo": {
+    "palette-forge": {
       "architect": {
         "build": {
           "builder": "@angular/build:application",
@@ -26,10 +26,15 @@
             }
           },
           "options": {
-            "assets": [],
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "public"
+              }
+            ],
             "index": "src/index.html",
             "browser": "src/main.ts",
-            "outputPath": "dist/demo",
+            "outputPath": "dist/palette-forge",
             "scripts": [],
             "styles": ["src/styles.css"],
             "tsConfig": "tsconfig.app.json"
@@ -39,10 +44,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "development": {
-              "buildTarget": "demo:build:development"
+              "buildTarget": "palette-forge:build:development"
             },
             "production": {
-              "buildTarget": "demo:build:production"
+              "buildTarget": "palette-forge:build:production"
             }
           },
           "defaultConfiguration": "development"
