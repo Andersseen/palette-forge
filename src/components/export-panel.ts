@@ -1,4 +1,4 @@
-import { Component, inject } from "@angular/core";
+import { Component, inject, signal } from "@angular/core";
 import ColorPalette from "@services/color-palette";
 
 @Component({
@@ -12,14 +12,7 @@ import ColorPalette from "@services/color-palette";
           class="px-4 py-2 rounded-md font-medium transition-all duration-200 hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 bg-primary text-background focus:ring-primary"
           (click)="copyTailwindConfig()"
         >
-          {{ configCopied ? "Config Copied!" : "Copy Tailwind Config" }}
-        </button>
-
-        <button
-          class="px-4 py-2 rounded-md font-medium border transition-all duration-200 hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 border-foreground/30 focus:ring-primary"
-          (click)="downloadConfig()"
-        >
-          Download Config File
+          {{ buttonText() }}
         </button>
       </div>
 
@@ -33,7 +26,7 @@ import ColorPalette from "@services/color-palette";
 })
 export default class ExportPanel {
   private colorService = inject(ColorPalette);
-  configCopied = false;
+  buttonText = signal("Copy Tailwind @theme");
 
   getTailwindConfig(): string {
     return this.colorService.getTailwindConfig();
@@ -42,25 +35,13 @@ export default class ExportPanel {
   async copyTailwindConfig(): Promise<void> {
     try {
       await navigator.clipboard.writeText(this.getTailwindConfig());
-      this.configCopied = true;
+      this.buttonText.set("@theme Copied!");
       setTimeout(() => {
-        this.configCopied = false;
+        this.buttonText.set("Copy Tailwind @theme");
       }, 2000);
     } catch (err) {
+      this.buttonText.set("Failed to copy @theme");
       console.error("Failed to copy config:", err);
     }
-  }
-
-  downloadConfig(): void {
-    const config = `module.exports = ${this.getTailwindConfig()}`;
-    const blob = new Blob([config], { type: "text/javascript" });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = "tailwind.config.js";
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    URL.revokeObjectURL(url);
   }
 }
