@@ -31,24 +31,24 @@ const REVEAL_MS = 300;
   providers: [ColorPalette],
   template: `
     <section
-      class="min-h-screen relative isolate transition-colors duration-300 overflow-x-hidden bg-background text-foreground"
+      class="relative isolate min-h-screen overflow-x-hidden bg-background text-foreground"
     >
       <div #overlay id="theme-overlay" aria-hidden="true"></div>
-      <div class="blend-contrast">
+
+      <div class="blend-contrast flex min-h-screen flex-col">
         <app-header
           [isDarkMode]="isDarkMode()"
           (toggleThemeMode)="toggleThemeMode($event)"
         />
 
         <main
-          class="max-w-7xl mx-auto px-2 sm:px-4 md:px-6 lg:px-8 py-6 sm:py-8"
+          class="flex-1 max-w-7xl mx-auto px-2 sm:px-4 md:px-6 lg:px-8 py-6 sm:py-8"
         >
           <app-hero-section
             [isDarkMode]="isDarkMode()"
             (generatePalette)="generatePalette($event)"
           />
 
-          <!-- Color Swatches -->
           <section class="mb-8 sm:mb-12">
             <h2 class="text-xl sm:text-2xl font-semibold mb-4 sm:mb-6">
               Color Palette
@@ -62,12 +62,10 @@ const REVEAL_MS = 300;
             </div>
           </section>
 
-          <!-- Theme Preview -->
           <section class="mb-8 sm:mb-12">
             <app-theme-preview />
           </section>
 
-          <!-- Export Configuration -->
           <section>
             <app-export-panel />
           </section>
