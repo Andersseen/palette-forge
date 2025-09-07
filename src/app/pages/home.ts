@@ -1,6 +1,7 @@
 import {
   Component,
   computed,
+  DOCUMENT,
   ElementRef,
   inject,
   viewChild,
@@ -42,7 +43,7 @@ const REVEAL_MS = 300;
         <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <app-hero-section
             [isDarkMode]="isDarkMode()"
-            (generatePalette)="generatePalette()"
+            (generatePalette)="generatePalette($event)"
           />
 
           <!-- Color Swatches -->
@@ -72,7 +73,9 @@ const REVEAL_MS = 300;
   `,
 })
 export default class Home {
-  private colorService = inject(ColorPalette);
+  private readonly colorService = inject(ColorPalette);
+  private readonly document = inject(DOCUMENT);
+  private readonly root = this.document.documentElement;
 
   overlay = viewChild<ElementRef<HTMLElement>>("overlay");
 
@@ -83,21 +86,29 @@ export default class Home {
     this.colorService.generatePalette();
   }
 
-  generatePalette(): void {
+  generatePalette(ev?: MouseEvent): void {
+    this.root.style.setProperty("--x", ev ? `${ev.clientX}px` : "50vw");
+    this.root.style.setProperty("--y", ev ? `${ev.clientY}px` : "50vh");
     this.colorService.generatePalette();
+    this.overlay()!.nativeElement.style.background = `rgba(${hexToRgb(
+      this.colorService.theme().primary
+    )} / 0.2)`;
+
+    this.root.classList.add("theme-generate-animating");
+    setTimeout(() => {
+      this.root.classList.remove("theme-generate-animating");
+    }, 400);
   }
   toggleThemeMode(ev?: MouseEvent): void {
-    const root = document.documentElement;
-
-    root.style.setProperty("--x", ev ? `${ev.clientX}px` : "50vw");
-    root.style.setProperty("--y", ev ? `${ev.clientY}px` : "50vh");
+    this.root.style.setProperty("--x", ev ? `${ev.clientX}px` : "50vw");
+    this.root.style.setProperty("--y", ev ? `${ev.clientY}px` : "50vh");
     this.colorService.toggleThemeMode();
     this.overlay()!.nativeElement.style.background = `rgb(${hexToRgb(
       this.colorService.theme().bg
     )})`;
-    root.classList.add("theme-animating");
+    this.root.classList.add("theme-animating");
     setTimeout(() => {
-      root.classList.remove("theme-animating");
+      this.root.classList.remove("theme-animating");
     }, REVEAL_MS);
   }
 }

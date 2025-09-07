@@ -32,7 +32,6 @@
   inset: 0;
   z-index: -1;
   pointer-events: none;
-
   clip-path: circle(0 at var(--x) var(--y));
 }
 
@@ -44,7 +43,21 @@
     clip-path: circle(150% at var(--x) var(--y));
   }
 }
+@keyframes reveal-back {
+  0% {
+    clip-path: circle(0 at var(--x) var(--y));
+  }
+  50% {
+    clip-path: circle(150% at var(--x) var(--y));
+  }
+  100% {
+    clip-path: circle(0 at var(--x) var(--y));
+  }
+}
 
 .theme-animating #theme-overlay {
   animation: reveal 300ms ease-out forwards;
+}
+.theme-generate-animating #theme-overlay {
+  animation: reveal-back 400ms ease-out forwards;
 }
