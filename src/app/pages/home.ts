@@ -13,7 +13,7 @@ import Footer from "@components/footer";
 import Header from "@components/header";
 import HeroSection from "@components/hero-section";
 import ThemePreview from "@components/theme-preview";
-import { hexToRgb } from "../../shared/utils";
+import { hexToRgb } from "@shared/utils";
 
 const REVEAL_MS = 300;
 

@@ -1,5 +1,5 @@
 import { Component, input } from "@angular/core";
-import type { ColorSwatchType } from "../types/theme.types";
+import type { ColorSwatchType } from "@shared/types";
 
 @Component({
   selector: "app-color-swatch",
