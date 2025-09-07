@@ -5,6 +5,9 @@
   --fg: "#1a1a1a";
   --primary: "#3b82f6";
   --secondary: "#10b981";
+
+  --x: 50vw;
+  --y: 50vh;
 }
 
 /* @custom-variant dark (&:where(.dark, .dark *)); */
@@ -24,9 +27,24 @@
     --color-secondary: #34d399;
   }
 } */
+#theme-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
 
-body {
-  background-color: rgb(var(--bg) / 1);
-  color: rgb(var(--fg) / 1);
-  transition: background-color 0.3s ease, color 0.3s ease;
+  clip-path: circle(0 at var(--x) var(--y));
+}
+
+@keyframes reveal {
+  from {
+    clip-path: circle(0 at var(--x) var(--y));
+  }
+  to {
+    clip-path: circle(150% at var(--x) var(--y));
+  }
+}
+
+.theme-animating #theme-overlay {
+  animation: reveal 300ms ease-out forwards;
 }

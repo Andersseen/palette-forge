@@ -6,6 +6,7 @@ import type {
   ThemeMode,
   OklabColor,
 } from "../types/theme.types";
+import { hexToRgb } from "../shared/utils";
 
 @Injectable()
 export default class ColorPalette {
@@ -220,14 +221,6 @@ export default class ColorPalette {
   private updateCSSVariables(): void {
     const theme = this.currentTheme();
     const root = document.documentElement;
-
-    // Convert hex to RGB values for better CSS variable usage
-    const hexToRgb = (hex: string) => {
-      const r = parseInt(hex.slice(1, 3), 16);
-      const g = parseInt(hex.slice(3, 5), 16);
-      const b = parseInt(hex.slice(5, 7), 16);
-      return `${r} ${g} ${b}`;
-    };
 
     root.style.setProperty("--bg", hexToRgb(theme.bg));
     root.style.setProperty("--fg", hexToRgb(theme.fg));

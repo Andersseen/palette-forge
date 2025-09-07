@@ -16,7 +16,7 @@ import ThemeSwitcher from "./theme-switcher";
           <button
             class="p-2 rounded-lg border transition-all duration-200 hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2"
             style="border-color: rgb(var(--fg) / 0.3); color: rgb(var(--fg) / 1); focus:ring-color: rgb(var(--primary) / 1)"
-            (click)="toggleThemeMode.emit()"
+            (click)="toggleThemeMode.emit($event)"
             [title]="
               isDarkMode() ? 'Switch to light mode' : 'Switch to dark mode'
             "
@@ -31,5 +31,5 @@ import ThemeSwitcher from "./theme-switcher";
 })
 export default class Header {
   isDarkMode = input();
-  toggleThemeMode = output();
+  toggleThemeMode = output<MouseEvent>();
 }
