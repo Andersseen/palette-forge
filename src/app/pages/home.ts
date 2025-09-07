@@ -40,16 +40,22 @@ const REVEAL_MS = 300;
           (toggleThemeMode)="toggleThemeMode($event)"
         />
 
-        <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <main
+          class="max-w-7xl mx-auto px-2 sm:px-4 md:px-6 lg:px-8 py-6 sm:py-8"
+        >
           <app-hero-section
             [isDarkMode]="isDarkMode()"
             (generatePalette)="generatePalette($event)"
           />
 
           <!-- Color Swatches -->
-          <section class="mb-12">
-            <h2 class="text-2xl font-semibold mb-6">Color Palette</h2>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <section class="mb-8 sm:mb-12">
+            <h2 class="text-xl sm:text-2xl font-semibold mb-4 sm:mb-6">
+              Color Palette
+            </h2>
+            <div
+              class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6"
+            >
               @for (swatch of colorSwatches(); track swatch.cssVar) {
               <app-color-swatch [swatch]="swatch" />
               }
@@ -57,7 +63,7 @@ const REVEAL_MS = 300;
           </section>
 
           <!-- Theme Preview -->
-          <section class="mb-12">
+          <section class="mb-8 sm:mb-12">
             <app-theme-preview />
           </section>
 
