@@ -59,6 +59,7 @@ export default class ColorPalette {
     let fgColor: string;
     let primaryColor: string;
     let secondaryColor: string;
+    console.log(this.themeMode());
 
     if (this.themeMode() === "light") {
       // Light mode: light background, dark text
@@ -93,7 +94,7 @@ export default class ColorPalette {
       secondary: secondaryColor,
     });
 
-    this.updateCSSVariables();
+    // this.updateCSSVariables();
   }
 
   /**
@@ -110,13 +111,13 @@ export default class ColorPalette {
   setThemeMode(mode: ThemeMode): void {
     this.themeMode.set(mode);
     document.documentElement.classList.toggle("dark", mode === "dark");
-    this.generatePalette();
+    // this.generatePalette();
   }
 
   /**
    * Updates CSS custom properties with current theme
    */
-  private updateCSSVariables(): void {
+  updateCSSVariables(): void {
     const theme = this.currentTheme();
     const root = document.documentElement;
 
