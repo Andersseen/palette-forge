@@ -5,7 +5,7 @@
   },
   "newProjectRoot": "projects",
   "projects": {
-    "palette-forge": {
+    "palette-crafter": {
       "architect": {
         "build": {
           "builder": "@angular/build:application",
@@ -34,7 +34,7 @@
             ],
             "index": "src/index.html",
             "browser": "src/main.ts",
-            "outputPath": "dist/palette-forge",
+            "outputPath": "dist/palette-crafter",
             "scripts": [],
             "styles": ["src/styles.css"],
             "tsConfig": "tsconfig.app.json"
@@ -44,10 +44,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "development": {
-              "buildTarget": "palette-forge:build:development"
+              "buildTarget": "palette-crafter:build:development"
             },
             "production": {
-              "buildTarget": "palette-forge:build:production"
+              "buildTarget": "palette-crafter:build:production"
             }
           },
           "defaultConfiguration": "development"
