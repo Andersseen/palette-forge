@@ -40,7 +40,7 @@
     clip-path: circle(0 at var(--x) var(--y));
   }
   to {
-    clip-path: circle(150% at var(--x) var(--y));
+    clip-path: circle(100% at var(--x) var(--y));
   }
 }
 @keyframes reveal-back {
@@ -56,8 +56,8 @@
 }
 
 .theme-animating #theme-overlay {
-  animation: reveal 300ms ease-out forwards;
+  animation: reveal 150ms ease-in forwards;
 }
 .theme-generate-animating #theme-overlay {
-  animation: reveal-back 400ms ease-out forwards;
+  animation: reveal-back 300ms ease-in-out forwards;
 }

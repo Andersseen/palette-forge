@@ -16,8 +16,6 @@ import HeroSection from "@components/hero-section";
 import ThemePreview from "@components/theme-preview";
 import { hexToRgb } from "@shared/utils";
 
-const REVEAL_MS = 300;
-
 @Component({
   selector: "app-home",
   imports: [
@@ -88,12 +86,14 @@ export default class Home {
 
   constructor() {
     this.colorService.generatePalette();
+    this.colorService.updateCSSVariables();
   }
 
   generatePalette(ev?: MouseEvent): void {
     this.root.style.setProperty("--x", ev ? `${ev.clientX}px` : "50vw");
     this.root.style.setProperty("--y", ev ? `${ev.clientY}px` : "50vh");
     this.colorService.generatePalette();
+    this.colorService.updateCSSVariables();
     this.overlay()!.nativeElement.style.background = `rgba(${hexToRgb(
       this.colorService.theme().primary
     )} / 0.2)`;
@@ -101,18 +101,24 @@ export default class Home {
     this.root.classList.add("theme-generate-animating");
     setTimeout(() => {
       this.root.classList.remove("theme-generate-animating");
-    }, 400);
+    }, 300);
   }
   toggleThemeMode(ev?: MouseEvent): void {
+    this.colorService.toggleThemeMode();
+    this.colorService.generatePalette();
+
     this.root.style.setProperty("--x", ev ? `${ev.clientX}px` : "50vw");
     this.root.style.setProperty("--y", ev ? `${ev.clientY}px` : "50vh");
-    this.colorService.toggleThemeMode();
+
     this.overlay()!.nativeElement.style.background = `rgb(${hexToRgb(
       this.colorService.theme().bg
     )})`;
+
     this.root.classList.add("theme-animating");
     setTimeout(() => {
       this.root.classList.remove("theme-animating");
-    }, REVEAL_MS);
+
+      this.colorService.updateCSSVariables();
+    }, 150);
   }
 }
