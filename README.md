@@ -1,6 +1,6 @@
-# Palette Forge
+# Palette Crafter
 
-Palette Forge is a colorful playground for exploring and tuning Tailwind CSS color palettes in an Angular application.
+Palette Crafter is a colorful playground for exploring and tuning Tailwind CSS color palettes in an Angular application.
 
 ## Features
 
